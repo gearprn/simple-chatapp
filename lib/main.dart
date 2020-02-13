@@ -42,13 +42,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<Null> handleSignIn() async {
     prefs = await SharedPreferences.getInstance();
 
+    print('get prefs');
+
     GoogleSignInAccount googleUser = await googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    print('get google auth object');
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+
+    print('get google auth credential');
 
     FirebaseUser firebaseUser = (await firebaseAuth.signInWithCredential(credential)).user;
 
